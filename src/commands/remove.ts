@@ -1,0 +1,136 @@
+import { unlink, writeFile, readFile, mkdir } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { join, dirname as pathDirname } from 'node:path';
+import { getHook } from '../registry/index.js';
+import { readSettings, writeSettings } from '../config/manager.js';
+import { createBackup } from '../config/backup.js';
+import { getSettingsPath, getHooksDir } from '../config/locator.js';
+import { log } from '../utils/logger.js';
+import type { Scope } from '../config/locator.js';
+import type { ClaudeSettings, HookGroup } from '../types/settings.js';
+
+export interface RemoveOptions {
+  scope: string;
+  hookName: string;
+  dryRun?: boolean;
+}
+
+export interface RemoveAtOptions {
+  settingsPath: string;
+  hooksDir: string;
+  hookName: string;
+  dryRun?: boolean;
+}
+
+/**
+ * Remove hook groups that reference the given scriptFile from a settings object.
+ * Returns the modified settings and a count of removed entries.
+ */
+function removeHookFromSettings(
+  settings: ClaudeSettings,
+  scriptFile: string,
+): { settings: ClaudeSettings; removedCount: number } {
+  if (!settings.hooks) {
+    return { settings, removedCount: 0 };
+  }
+
+  const modified = structuredClone(settings) as ClaudeSettings;
+  let removedCount = 0;
+
+  for (const [event, groups] of Object.entries(modified.hooks!)) {
+    const filtered = (groups as HookGroup[]).filter((group) => {
+      const hasMatch = group.hooks.some((h) => h.command.includes(scriptFile));
+      if (hasMatch) removedCount++;
+      return !hasMatch;
+    });
+    modified.hooks![event] = filtered;
+  }
+
+  return { settings: modified, removedCount };
+}
+
+/**
+ * Core remove logic. Accepts explicit paths for testability.
+ *
+ * Flow:
+ * 1. Look up hook in registry — error and return if not found
+ * 2. Check if script exists in hooksDir — warn and return if not installed
+ * 3. If dry-run: print preview and return
+ * 4. Read settings, filter out matching hook entries
+ * 5. Backup settings
+ * 6. Write updated settings
+ * 7. Delete script file
+ * 8. Print summary
+ */
+export async function _removeAt(opts: RemoveAtOptions): Promise<void> {
+  const { settingsPath, hooksDir, hookName, dryRun = false } = opts;
+
+  // 1. Look up hook in registry
+  const hook = getHook(hookName);
+  if (!hook) {
+    log.error(`Unknown hook: "${hookName}". Run "claude-hooks list" to see available hooks.`);
+    return;
+  }
+
+  const scriptPath = join(hooksDir, hook.scriptFile);
+
+  // 2. Check if installed
+  if (!existsSync(scriptPath)) {
+    log.warn(`Hook "${hookName}" is not installed (script not found at ${scriptPath}).`);
+    return;
+  }
+
+  // 3. Dry-run preview
+  if (dryRun) {
+    log.dryRun(`Would delete: ${scriptPath}`);
+    log.dryRun(`Would remove ${hookName} entry from settings.json`);
+    return;
+  }
+
+  // 4. Read settings and remove hook entries
+  const existing = await readSettings(settingsPath);
+  const { settings: updated, removedCount } = removeHookFromSettings(existing, hook.scriptFile);
+
+  // 5. Backup settings (only if settings file exists)
+  if (existsSync(settingsPath)) {
+    await createBackup(settingsPath);
+  }
+
+  // 6. Write updated settings
+  let originalRaw: string | undefined;
+  try {
+    originalRaw = await readFile(settingsPath, 'utf8');
+  } catch {
+    originalRaw = undefined;
+  }
+  const settingsParent = pathDirname(settingsPath);
+  await mkdir(settingsParent, { recursive: true });
+  await writeSettings(settingsPath, updated, originalRaw);
+
+  // 7. Delete script file
+  await unlink(scriptPath);
+
+  // 8. Print summary
+  log.success(`Removed hook: ${hookName}`);
+  log.dim(`  Deleted: ${scriptPath}`);
+  if (removedCount > 0) {
+    log.dim(`  Removed ${removedCount} settings entr${removedCount === 1 ? 'y' : 'ies'} from settings.json`);
+  }
+}
+
+/**
+ * Public remove command — resolves paths from scope then delegates to _removeAt.
+ */
+export async function removeCommand(opts: RemoveOptions): Promise<void> {
+  const validScopes: Scope[] = ['user', 'project', 'local'];
+  const scope: Scope = validScopes.includes(opts.scope as Scope)
+    ? (opts.scope as Scope)
+    : 'project';
+
+  await _removeAt({
+    settingsPath: getSettingsPath(scope),
+    hooksDir: getHooksDir(scope),
+    hookName: opts.hookName,
+    dryRun: opts.dryRun,
+  });
+}
