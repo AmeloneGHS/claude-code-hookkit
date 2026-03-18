@@ -31,12 +31,12 @@
 
 - [x] **REG-01**: Registry ships bundled with the npm package (no remote server)
 - [x] **REG-02**: Each hook has metadata: name, description, event type, matcher, what it blocks/allows
-- [ ] **REG-03**: Security pack includes: sensitive-path-guard, exit-code enforcer
-- [ ] **REG-04**: Quality pack includes: post-edit-lint, ts-check
-- [ ] **REG-05**: Cost pack includes: web-budget-gate, cost-tracker
-- [ ] **REG-06**: Error pack includes: error-advisor with contextual fix suggestions
-- [ ] **REG-07**: All bundled hooks use exit code 2 to block (not exit 1) per Claude Code spec
-- [ ] **REG-08**: All bundled hooks are POSIX-compatible (macOS bash 3.2 + Linux bash 5.x)
+- [x] **REG-03**: Security pack includes: sensitive-path-guard, exit-code enforcer
+- [x] **REG-04**: Quality pack includes: post-edit-lint, ts-check
+- [x] **REG-05**: Cost pack includes: web-budget-gate, cost-tracker
+- [x] **REG-06**: Error pack includes: error-advisor with contextual fix suggestions
+- [x] **REG-07**: All bundled hooks use exit code 2 to block (not exit 1) per Claude Code spec
+- [x] **REG-08**: All bundled hooks are POSIX-compatible (macOS bash 3.2 + Linux bash 5.x)
 
 ### Testing Framework
 
@@ -107,12 +107,12 @@
 | SET-06 | Phase 1 | Complete |
 | REG-01 | Phase 1 | Complete |
 | REG-02 | Phase 1 | Complete |
-| REG-03 | Phase 2 | Pending |
-| REG-04 | Phase 2 | Pending |
-| REG-05 | Phase 2 | Pending |
-| REG-06 | Phase 2 | Pending |
-| REG-07 | Phase 2 | Pending |
-| REG-08 | Phase 2 | Pending |
+| REG-03 | Phase 2 | Complete |
+| REG-04 | Phase 2 | Complete |
+| REG-05 | Phase 2 | Complete |
+| REG-06 | Phase 2 | Complete |
+| REG-07 | Phase 2 | Complete |
+| REG-08 | Phase 2 | Complete |
 | TST-01 | Phase 3 | Pending |
 | TST-02 | Phase 3 | Pending |
 | TST-03 | Phase 3 | Pending |

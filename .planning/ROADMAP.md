@@ -88,6 +88,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Settings Engine | 3/3 | Complete   | 2026-03-18 |
-| 2. CLI Commands & Hook Registry | 0/3 | Not started | - |
+| 2. CLI Commands & Hook Registry | 2/3 | In Progress|  |
 | 3. Testing & Scaffolding | 0/2 | Not started | - |
 | 4. Documentation & Polish | 0/1 | Not started | - |
