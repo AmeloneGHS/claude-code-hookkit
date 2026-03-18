@@ -7,7 +7,7 @@
 
 ### CLI Core
 
-- [ ] **CLI-01**: User can run `npx claude-hooks init` to scaffold hook directory and seed settings.json
+- [x] **CLI-01**: User can run `npx claude-hooks init` to scaffold hook directory and seed settings.json
 - [ ] **CLI-02**: User can run `claude-hooks add <hook>` to install a hook from the bundled registry
 - [ ] **CLI-03**: User can run `claude-hooks add <pack>` to install a pack of related hooks in one command
 - [ ] **CLI-04**: User can run `claude-hooks remove <hook>` to cleanly uninstall a hook (script + settings.json entry)
@@ -16,7 +16,7 @@
 - [ ] **CLI-07**: User can run `claude-hooks test --all` to test all installed hooks
 - [ ] **CLI-08**: User can run `claude-hooks create <name> --event <type> --matcher <pattern>` to scaffold a custom hook from templates
 - [ ] **CLI-09**: User can run `claude-hooks doctor` to validate installation health (scripts exist, executable, settings.json valid)
-- [ ] **CLI-10**: Every command supports `--help` with clear usage examples
+- [x] **CLI-10**: Every command supports `--help` with clear usage examples
 
 ### Settings Management
 
@@ -30,7 +30,7 @@
 ### Hook Registry
 
 - [ ] **REG-01**: Registry ships bundled with the npm package (no remote server)
-- [ ] **REG-02**: Each hook has metadata: name, description, event type, matcher, what it blocks/allows
+- [x] **REG-02**: Each hook has metadata: name, description, event type, matcher, what it blocks/allows
 - [ ] **REG-03**: Security pack includes: sensitive-path-guard, exit-code enforcer
 - [ ] **REG-04**: Quality pack includes: post-edit-lint, ts-check
 - [ ] **REG-05**: Cost pack includes: web-budget-gate, cost-tracker
@@ -89,7 +89,7 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CLI-01 | Phase 1 | Pending |
+| CLI-01 | Phase 1 | Complete |
 | CLI-02 | Phase 2 | Pending |
 | CLI-03 | Phase 2 | Pending |
 | CLI-04 | Phase 2 | Pending |
@@ -98,7 +98,7 @@
 | CLI-07 | Phase 3 | Pending |
 | CLI-08 | Phase 3 | Pending |
 | CLI-09 | Phase 2 | Pending |
-| CLI-10 | Phase 2 | Pending |
+| CLI-10 | Phase 2 | Complete |
 | SET-01 | Phase 1 | Pending |
 | SET-02 | Phase 1 | Pending |
 | SET-03 | Phase 1 | Pending |
@@ -106,7 +106,7 @@
 | SET-05 | Phase 2 | Pending |
 | SET-06 | Phase 1 | Pending |
 | REG-01 | Phase 1 | Pending |
-| REG-02 | Phase 1 | Pending |
+| REG-02 | Phase 1 | Complete |
 | REG-03 | Phase 2 | Pending |
 | REG-04 | Phase 2 | Pending |
 | REG-05 | Phase 2 | Pending |
