@@ -1,0 +1,44 @@
+{
+  "name": "claude-hooks",
+  "version": "0.1.0",
+  "description": "Hook manager for Claude Code — install, manage, test, and share hooks with a single command",
+  "type": "module",
+  "bin": {
+    "claude-hooks": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "hooks",
+    "registry"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "commander": "^14.0.0",
+    "picocolors": "^1.1.1",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "hooks",
+    "cli",
+    "anthropic"
+  ],
+  "license": "MIT"
+}
