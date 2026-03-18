@@ -1,0 +1,81 @@
+{
+  "hooks": {
+    "sensitive-path-guard": {
+      "name": "sensitive-path-guard",
+      "description": "Blocks writes to sensitive paths (.env, credentials, keys, etc.)",
+      "event": "PreToolUse",
+      "matcher": "Edit|Write",
+      "pack": "security-pack",
+      "scriptFile": "sensitive-path-guard.sh"
+    },
+    "exit-code-enforcer": {
+      "name": "exit-code-enforcer",
+      "description": "Ensures hook scripts use exit code 2 to block (not exit 1)",
+      "event": "PreToolUse",
+      "matcher": "Bash",
+      "pack": "security-pack",
+      "scriptFile": "exit-code-enforcer.sh"
+    },
+    "post-edit-lint": {
+      "name": "post-edit-lint",
+      "description": "Runs linter on files after Claude edits them",
+      "event": "PostToolUse",
+      "matcher": "Write|Edit",
+      "pack": "quality-pack",
+      "scriptFile": "post-edit-lint.sh"
+    },
+    "ts-check": {
+      "name": "ts-check",
+      "description": "Runs TypeScript type checking after code changes",
+      "event": "PostToolUse",
+      "matcher": "Write|Edit",
+      "pack": "quality-pack",
+      "scriptFile": "ts-check.sh"
+    },
+    "web-budget-gate": {
+      "name": "web-budget-gate",
+      "description": "Limits web search/fetch calls per session to control costs",
+      "event": "PreToolUse",
+      "matcher": "WebSearch|WebFetch",
+      "pack": "cost-pack",
+      "scriptFile": "web-budget-gate.sh"
+    },
+    "cost-tracker": {
+      "name": "cost-tracker",
+      "description": "Tracks tool usage costs per session",
+      "event": "PostToolUse",
+      "pack": "cost-pack",
+      "scriptFile": "cost-tracker.sh"
+    },
+    "error-advisor": {
+      "name": "error-advisor",
+      "description": "Provides contextual fix suggestions when commands fail",
+      "event": "PostToolUse",
+      "matcher": "Bash",
+      "pack": "error-pack",
+      "scriptFile": "error-advisor.sh"
+    }
+  },
+  "packs": {
+    "security-pack": {
+      "name": "security-pack",
+      "description": "Essential security hooks for Claude Code",
+      "hooks": ["sensitive-path-guard", "exit-code-enforcer"]
+    },
+    "quality-pack": {
+      "name": "quality-pack",
+      "description": "Code quality hooks (linting, type checking)",
+      "hooks": ["post-edit-lint", "ts-check"]
+    },
+    "cost-pack": {
+      "name": "cost-pack",
+      "description": "Cost control and usage tracking hooks",
+      "hooks": ["web-budget-gate", "cost-tracker"]
+    },
+    "error-pack": {
+      "name": "error-pack",
+      "description": "Error recovery and fix suggestion hooks",
+      "hooks": ["error-advisor"]
+    }
+  }
+}
