@@ -89,13 +89,46 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (Populated during roadmap creation) | | |
+| CLI-01 | Phase 1 | Pending |
+| CLI-02 | Phase 2 | Pending |
+| CLI-03 | Phase 2 | Pending |
+| CLI-04 | Phase 2 | Pending |
+| CLI-05 | Phase 2 | Pending |
+| CLI-06 | Phase 3 | Pending |
+| CLI-07 | Phase 3 | Pending |
+| CLI-08 | Phase 3 | Pending |
+| CLI-09 | Phase 2 | Pending |
+| CLI-10 | Phase 2 | Pending |
+| SET-01 | Phase 1 | Pending |
+| SET-02 | Phase 1 | Pending |
+| SET-03 | Phase 1 | Pending |
+| SET-04 | Phase 1 | Pending |
+| SET-05 | Phase 2 | Pending |
+| SET-06 | Phase 1 | Pending |
+| REG-01 | Phase 1 | Pending |
+| REG-02 | Phase 1 | Pending |
+| REG-03 | Phase 2 | Pending |
+| REG-04 | Phase 2 | Pending |
+| REG-05 | Phase 2 | Pending |
+| REG-06 | Phase 2 | Pending |
+| REG-07 | Phase 2 | Pending |
+| REG-08 | Phase 2 | Pending |
+| TST-01 | Phase 3 | Pending |
+| TST-02 | Phase 3 | Pending |
+| TST-03 | Phase 3 | Pending |
+| TST-04 | Phase 3 | Pending |
+| SCF-01 | Phase 3 | Pending |
+| SCF-02 | Phase 3 | Pending |
+| SCF-03 | Phase 3 | Pending |
+| DOC-01 | Phase 4 | Pending |
+| DOC-02 | Phase 4 | Pending |
+| DOC-03 | Phase 4 | Pending |
 
 **Coverage:**
-- v1 requirements: 28 total
-- Mapped to phases: 0
-- Unmapped: 28
+- v1 requirements: 34 total
+- Mapped to phases: 34
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-18*
-*Last updated: 2026-03-18 after initial definition*
+*Last updated: 2026-03-18 after roadmap creation*
