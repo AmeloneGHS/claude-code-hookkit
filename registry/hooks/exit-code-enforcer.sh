@@ -14,8 +14,13 @@
 # Read all stdin into a variable
 INPUT=$(cat)
 
-# Extract command from tool_input using grep/sed
-COMMAND=$(printf '%s' "$INPUT" | grep -o '"command"[[:space:]]*:[[:space:]]*"[^"]*"' | head -1 | sed 's/"command"[[:space:]]*:[[:space:]]*"\(.*\)"/\1/')
+# Extract command value from tool_input JSON.
+# Strategy: isolate the "command":"..." pair, handling escaped quotes inside the value.
+# 1. grep extracts "command": followed by a JSON string (handling \" escapes)
+# 2. sed strips the key and outer quotes
+# 3. Second sed unescapes JSON string escapes
+COMMAND_RAW=$(printf '%s' "$INPUT" | grep -o '"command"[[:space:]]*:[[:space:]]*"[^"\\]*\(\\.[^"\\]*\)*"' | head -1 | sed 's/^"command"[[:space:]]*:[[:space:]]*"//; s/"$//')
+COMMAND=$(printf '%s' "$COMMAND_RAW" | sed 's/\\"/"/g; s/\\\\/\\/g')
 
 # If no command found, allow (can't determine what's being run)
 if [ -z "$COMMAND" ]; then

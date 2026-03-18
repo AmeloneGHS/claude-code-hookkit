@@ -1,4 +1,4 @@
-import { unlink, writeFile, readFile, mkdir } from 'node:fs/promises';
+import { unlink, readFile, mkdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { join, dirname as pathDirname } from 'node:path';
 import { getHook } from '../registry/index.js';
@@ -39,7 +39,8 @@ function removeHookFromSettings(
 
   for (const [event, groups] of Object.entries(modified.hooks!)) {
     const filtered = (groups as HookGroup[]).filter((group) => {
-      const hasMatch = group.hooks.some((h) => h.command.includes(scriptFile));
+      // Match by exact filename at end of path to avoid substring collisions
+      const hasMatch = group.hooks.some((h) => h.command === scriptFile || h.command.endsWith('/' + scriptFile));
       if (hasMatch) removedCount++;
       return !hasMatch;
     });
@@ -73,48 +74,59 @@ export async function _removeAt(opts: RemoveAtOptions): Promise<void> {
   }
 
   const scriptPath = join(hooksDir, hook.scriptFile);
+  const scriptExists = existsSync(scriptPath);
 
-  // 2. Check if installed
-  if (!existsSync(scriptPath)) {
-    log.warn(`Hook "${hookName}" is not installed (script not found at ${scriptPath}).`);
+  // Check if anything is installed (script or settings entry)
+  const existing = await readSettings(settingsPath);
+  const { settings: updated, removedCount } = removeHookFromSettings(existing, hook.scriptFile);
+
+  if (!scriptExists && removedCount === 0) {
+    log.warn(`Hook "${hookName}" is not installed.`);
     return;
   }
 
   // 3. Dry-run preview
   if (dryRun) {
-    log.dryRun(`Would delete: ${scriptPath}`);
-    log.dryRun(`Would remove ${hookName} entry from settings.json`);
+    if (scriptExists) {
+      log.dryRun(`Would delete: ${scriptPath}`);
+    }
+    if (removedCount > 0) {
+      log.dryRun(`Would remove ${removedCount} settings entr${removedCount === 1 ? 'y' : 'ies'} from settings.json`);
+    }
     return;
   }
 
-  // 4. Read settings and remove hook entries
-  const existing = await readSettings(settingsPath);
-  const { settings: updated, removedCount } = removeHookFromSettings(existing, hook.scriptFile);
-
-  // 5. Backup settings (only if settings file exists)
-  if (existsSync(settingsPath)) {
+  // 4. Backup settings (only if settings file exists and we're changing it)
+  if (removedCount > 0 && existsSync(settingsPath)) {
     await createBackup(settingsPath);
+
+    // 5. Write updated settings
+    let originalRaw: string | undefined;
+    try {
+      originalRaw = await readFile(settingsPath, 'utf8');
+    } catch {
+      originalRaw = undefined;
+    }
+    const settingsParent = pathDirname(settingsPath);
+    await mkdir(settingsParent, { recursive: true });
+    await writeSettings(settingsPath, updated, originalRaw);
   }
 
-  // 6. Write updated settings
-  let originalRaw: string | undefined;
-  try {
-    originalRaw = await readFile(settingsPath, 'utf8');
-  } catch {
-    originalRaw = undefined;
+  // 6. Delete script file (if it exists)
+  if (scriptExists) {
+    await unlink(scriptPath);
   }
-  const settingsParent = pathDirname(settingsPath);
-  await mkdir(settingsParent, { recursive: true });
-  await writeSettings(settingsPath, updated, originalRaw);
 
-  // 7. Delete script file
-  await unlink(scriptPath);
-
-  // 8. Print summary
+  // 7. Print summary
   log.success(`Removed hook: ${hookName}`);
-  log.dim(`  Deleted: ${scriptPath}`);
+  if (scriptExists) {
+    log.dim(`  Deleted: ${scriptPath}`);
+  }
   if (removedCount > 0) {
     log.dim(`  Removed ${removedCount} settings entr${removedCount === 1 ? 'y' : 'ies'} from settings.json`);
+  }
+  if (!scriptExists && removedCount > 0) {
+    log.dim(`  (Script was already missing — cleaned up settings entry)`);
   }
 }
 

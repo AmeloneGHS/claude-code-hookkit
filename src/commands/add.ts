@@ -1,4 +1,4 @@
-import { copyFile, chmod, mkdir } from 'node:fs/promises';
+import { copyFile, chmod, mkdir, unlink } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
@@ -81,18 +81,25 @@ export async function _addAt(opts: AddAtOptions): Promise<void> {
   // 5. chmod +x
   await chmod(destPath, 0o755);
 
-  // 6. Merge into settings.json
-  const result = await applyMerge({
-    settingsPath,
-    newHooks: [
-      {
-        event: hook.event,
-        matcher: hook.matcher,
-        hook: { type: 'command', command: destPath },
-      },
-    ],
-    dryRun: false,
-  });
+  // 6. Merge into settings.json — clean up copied script if merge fails
+  let result;
+  try {
+    result = await applyMerge({
+      settingsPath,
+      newHooks: [
+        {
+          event: hook.event,
+          matcher: hook.matcher,
+          hook: { type: 'command', command: destPath },
+        },
+      ],
+      dryRun: false,
+    });
+  } catch (err) {
+    // Roll back the copied script to avoid orphaned files
+    await unlink(destPath).catch(() => {});
+    throw err;
+  }
 
   // 7. Print summary
   if (result.added.length > 0) {
