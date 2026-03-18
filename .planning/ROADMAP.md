@@ -32,7 +32,7 @@ claude-hooks goes from zero to publishable npm package in 4 phases. The settings
 Plans:
 - [x] 01-01: TypeScript project scaffold, Commander.js CLI skeleton, types and schemas
 - [x] 01-02: Settings merger engine (deep merge, backup, restore, scope, dry-run, conflict detection)
-- [ ] 01-03: Registry data model and init command integration
+- [x] 01-03: Registry data model and init command integration
 
 ### Phase 2: CLI Commands & Hook Registry
 **Goal**: Users can discover, install, and remove production-grade hooks with a single command

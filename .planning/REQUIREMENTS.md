@@ -8,10 +8,10 @@
 ### CLI Core
 
 - [x] **CLI-01**: User can run `npx claude-hooks init` to scaffold hook directory and seed settings.json
-- [ ] **CLI-02**: User can run `claude-hooks add <hook>` to install a hook from the bundled registry
+- [x] **CLI-02**: User can run `claude-hooks add <hook>` to install a hook from the bundled registry
 - [ ] **CLI-03**: User can run `claude-hooks add <pack>` to install a pack of related hooks in one command
-- [ ] **CLI-04**: User can run `claude-hooks remove <hook>` to cleanly uninstall a hook (script + settings.json entry)
-- [ ] **CLI-05**: User can run `claude-hooks list` to see available hooks, installed status, and event types
+- [x] **CLI-04**: User can run `claude-hooks remove <hook>` to cleanly uninstall a hook (script + settings.json entry)
+- [x] **CLI-05**: User can run `claude-hooks list` to see available hooks, installed status, and event types
 - [ ] **CLI-06**: User can run `claude-hooks test <hook>` to validate a hook with mock JSON input and verify exit code + output
 - [ ] **CLI-07**: User can run `claude-hooks test --all` to test all installed hooks
 - [ ] **CLI-08**: User can run `claude-hooks create <name> --event <type> --matcher <pattern>` to scaffold a custom hook from templates
@@ -90,10 +90,10 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | CLI-01 | Phase 1 | Complete |
-| CLI-02 | Phase 2 | Pending |
+| CLI-02 | Phase 2 | Complete |
 | CLI-03 | Phase 2 | Pending |
-| CLI-04 | Phase 2 | Pending |
-| CLI-05 | Phase 2 | Pending |
+| CLI-04 | Phase 2 | Complete |
+| CLI-05 | Phase 2 | Complete |
 | CLI-06 | Phase 3 | Pending |
 | CLI-07 | Phase 3 | Pending |
 | CLI-08 | Phase 3 | Pending |
