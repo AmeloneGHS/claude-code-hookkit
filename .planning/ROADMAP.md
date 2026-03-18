@@ -31,7 +31,7 @@ claude-hooks goes from zero to publishable npm package in 4 phases. The settings
 
 Plans:
 - [x] 01-01: TypeScript project scaffold, Commander.js CLI skeleton, types and schemas
-- [ ] 01-02: Settings merger engine (deep merge, backup, restore, scope, dry-run, conflict detection)
+- [x] 01-02: Settings merger engine (deep merge, backup, restore, scope, dry-run, conflict detection)
 - [ ] 01-03: Registry data model and init command integration
 
 ### Phase 2: CLI Commands & Hook Registry
@@ -87,7 +87,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Settings Engine | 1/3 | In progress | - |
+| 1. Foundation & Settings Engine | 2/3 | In progress | - |
 | 2. CLI Commands & Hook Registry | 0/3 | Not started | - |
 | 3. Testing & Scaffolding | 0/2 | Not started | - |
 | 4. Documentation & Polish | 0/1 | Not started | - |

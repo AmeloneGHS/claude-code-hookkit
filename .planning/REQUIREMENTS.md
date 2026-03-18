@@ -20,12 +20,12 @@
 
 ### Settings Management
 
-- [ ] **SET-01**: `add` and `init` perform non-destructive deep merge on settings.json, preserving all existing config
-- [ ] **SET-02**: User can pass `--dry-run` on any write command to preview changes without applying
-- [ ] **SET-03**: Settings.json is automatically backed up before any write operation
-- [ ] **SET-04**: User can run `claude-hooks restore` to revert to the last backup
+- [x] **SET-01**: `add` and `init` perform non-destructive deep merge on settings.json, preserving all existing config
+- [x] **SET-02**: User can pass `--dry-run` on any write command to preview changes without applying
+- [x] **SET-03**: Settings.json is automatically backed up before any write operation
+- [x] **SET-04**: User can run `claude-hooks restore` to revert to the last backup
 - [ ] **SET-05**: `doctor` detects conflicting hooks (overlapping event+matcher combinations) and warns
-- [ ] **SET-06**: `add` and `remove` target the correct settings scope (user/project/local via `--scope` flag)
+- [x] **SET-06**: `add` and `remove` target the correct settings scope (user/project/local via `--scope` flag)
 
 ### Hook Registry
 
@@ -99,12 +99,12 @@
 | CLI-08 | Phase 3 | Pending |
 | CLI-09 | Phase 2 | Pending |
 | CLI-10 | Phase 2 | Complete |
-| SET-01 | Phase 1 | Pending |
-| SET-02 | Phase 1 | Pending |
-| SET-03 | Phase 1 | Pending |
-| SET-04 | Phase 1 | Pending |
+| SET-01 | Phase 1 | Complete |
+| SET-02 | Phase 1 | Complete |
+| SET-03 | Phase 1 | Complete |
+| SET-04 | Phase 1 | Complete |
 | SET-05 | Phase 2 | Pending |
-| SET-06 | Phase 1 | Pending |
+| SET-06 | Phase 1 | Complete |
 | REG-01 | Phase 1 | Pending |
 | REG-02 | Phase 1 | Complete |
 | REG-03 | Phase 2 | Pending |
