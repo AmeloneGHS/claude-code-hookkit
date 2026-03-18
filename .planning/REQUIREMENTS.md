@@ -29,7 +29,7 @@
 
 ### Hook Registry
 
-- [ ] **REG-01**: Registry ships bundled with the npm package (no remote server)
+- [x] **REG-01**: Registry ships bundled with the npm package (no remote server)
 - [x] **REG-02**: Each hook has metadata: name, description, event type, matcher, what it blocks/allows
 - [ ] **REG-03**: Security pack includes: sensitive-path-guard, exit-code enforcer
 - [ ] **REG-04**: Quality pack includes: post-edit-lint, ts-check
@@ -105,7 +105,7 @@
 | SET-04 | Phase 1 | Complete |
 | SET-05 | Phase 2 | Pending |
 | SET-06 | Phase 1 | Complete |
-| REG-01 | Phase 1 | Pending |
+| REG-01 | Phase 1 | Complete |
 | REG-02 | Phase 1 | Complete |
 | REG-03 | Phase 2 | Pending |
 | REG-04 | Phase 2 | Pending |

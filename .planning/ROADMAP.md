@@ -10,7 +10,7 @@ claude-hooks goes from zero to publishable npm package in 4 phases. The settings
 - Integer phases (1, 2, 3, 4): Planned milestone work
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
-- [ ] **Phase 1: Foundation & Settings Engine** - Types, schemas, non-destructive settings merger, registry data model, init command
+- [x] **Phase 1: Foundation & Settings Engine** - Types, schemas, non-destructive settings merger, registry data model, init command (completed 2026-03-18)
 - [ ] **Phase 2: CLI Commands & Hook Registry** - add/remove/list/doctor commands with bundled hooks and packs
 - [ ] **Phase 3: Testing & Scaffolding** - Hook test runner, fixtures, create command with templates
 - [ ] **Phase 4: Documentation & Polish** - README, info command, inline docs, npx distribution readiness
@@ -87,7 +87,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Settings Engine | 2/3 | In progress | - |
+| 1. Foundation & Settings Engine | 3/3 | Complete   | 2026-03-18 |
 | 2. CLI Commands & Hook Registry | 0/3 | Not started | - |
 | 3. Testing & Scaffolding | 0/2 | Not started | - |
 | 4. Documentation & Polish | 0/1 | Not started | - |
