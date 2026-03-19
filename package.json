@@ -24,11 +24,11 @@
   "author": "Austin Amelone",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AmeloneGHS/claude-hooks.git"
+    "url": "git+https://github.com/AmeloneGHS/claude-code-hookkit.git"
   },
-  "homepage": "https://github.com/AmeloneGHS/claude-hooks#readme",
+  "homepage": "https://github.com/AmeloneGHS/claude-code-hookkit#readme",
   "bugs": {
-    "url": "https://github.com/AmeloneGHS/claude-hooks/issues"
+    "url": "https://github.com/AmeloneGHS/claude-code-hookkit/issues"
   },
   "dependencies": {
     "commander": "^14.0.0",
