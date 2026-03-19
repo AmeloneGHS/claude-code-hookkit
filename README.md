@@ -5,11 +5,58 @@
 
 **husky for Claude Code** — install, manage, test, and share hooks with a single command.
 
-Go from zero to production-grade Claude Code hooks in under 60 seconds:
+```bash
+npx claude-code-hookkit add security-pack
+```
+
+That one command installs hooks that block Claude from writing to `.env` files, running `rm -rf /`, and other operations you don't want an AI agent doing unsupervised.
+
+---
+
+## The Problem
+
+Claude Code is powerful, but it can:
+- Overwrite your `.env`, private keys, or credentials
+- Run destructive shell commands (`rm -rf`, fork bombs)
+- Burn through API credits with unlimited web searches
+- Edit files without linting, introducing silent regressions
+
+Hooks solve this — but setting them up means manually editing `settings.json`, writing shell scripts, and hoping they work. There's no way to test them, share them, or install a proven set in one step.
+
+**claude-code-hookkit fixes that.** 7 production-tested hooks. 4 curated packs. Full CLI for the entire lifecycle: init, add, remove, test, create, doctor.
+
+---
+
+## What You Get
+
+| Pack | What it does | Hooks |
+|------|-------------|-------|
+| `security-pack` | Blocks writes to sensitive files + dangerous shell commands | `sensitive-path-guard`, `exit-code-enforcer` |
+| `quality-pack` | Auto-lints and type-checks after every Claude edit | `post-edit-lint`, `ts-check` |
+| `cost-pack` | Caps web searches per session + tracks tool usage | `web-budget-gate`, `cost-tracker` |
+| `error-pack` | Suggests fixes when shell commands fail | `error-advisor` |
+
+Every hook is POSIX-compatible (no `jq`, no `python`, no `node` required), ships with test fixtures, and works on macOS and Linux.
+
+---
+
+## Quick Start
 
 ```bash
-npx claude-code-hookkit init && npx claude-code-hookkit add security-pack
+# Initialize hook directory and seed settings.json
+npx claude-code-hookkit init
+
+# Install the security pack
+npx claude-code-hookkit add security-pack
+
+# Verify everything is healthy
+npx claude-code-hookkit doctor
+
+# See what's installed
+npx claude-code-hookkit list
 ```
+
+Zero to protected in under 60 seconds.
 
 ---
 
