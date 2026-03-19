@@ -47,9 +47,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: add, remove, list commands with settings integration
-- [ ] 02-02: Bundled hook scripts (security, quality, cost, error packs) with POSIX compat and exit code 2
-- [ ] 02-03: doctor command, --help on all commands, pack installation logic
+- [x] 02-01: add, remove, list commands with settings integration
+- [x] 02-02: Bundled hook scripts (security, quality, cost, error packs) with POSIX compat and exit code 2
+- [x] 02-03: doctor command, --help on all commands, pack installation logic
 
 ### Phase 3: Testing & Scaffolding
 **Goal**: Users can verify hooks work before deploying them and create custom hooks from templates
@@ -61,11 +61,11 @@ Plans:
   3. Each bundled hook ships with test fixtures that validate automatically
   4. User can run `claude-hooks create my-hook --event PreToolUse --matcher Bash` and get a working hook script with test fixture
   5. User-created hooks with test fixtures in the expected location are auto-discovered by the test command
-**Plans**: 3 plans
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: Test runner engine (mock JSON stdin, exit code capture, colored output, fixture discovery)
-- [ ] 03-02: Create command with templates for each event type, test fixture scaffolding
+- [ ] 03-01-PLAN.md — Test runner engine (mock JSON stdin, exit code capture, colored output, fixture discovery)
+- [ ] 03-02-PLAN.md — Create command with templates for each event type, test fixture scaffolding
 
 ### Phase 4: Documentation & Polish
 **Goal**: A new user can go from discovery to production hooks by reading the README alone
@@ -75,7 +75,7 @@ Plans:
   1. README has quick start (init + add security-pack), full command reference, and real examples
   2. User can run `claude-hooks info <hook>` and see description with real input/output JSON examples
   3. Every bundled hook script has inline comments explaining what it does, what it blocks, and why
-**Plans**: 3 plans
+**Plans**: 1 plan
 
 Plans:
 - [ ] 04-01: README, info command, inline hook documentation
@@ -83,7 +83,7 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
