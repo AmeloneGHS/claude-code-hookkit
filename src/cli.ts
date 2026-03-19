@@ -91,4 +91,18 @@ Examples:
     await doctorCommand(opts);
   });
 
+program
+  .command('test [hook]')
+  .description('Test hooks with fixture data')
+  .option('--all', 'Test all installed hooks')
+  .option('--scope <scope>', 'Settings scope: user, project, or local', 'project')
+  .addHelpText('after', `
+Examples:
+  $ claude-hooks test sensitive-path-guard
+  $ claude-hooks test --all`)
+  .action(async (hook: string | undefined, opts: { all?: boolean; scope: string }) => {
+    const { testCommand } = await import('./commands/test.js');
+    await testCommand({ hookName: hook, ...opts });
+  });
+
 program.parse();
