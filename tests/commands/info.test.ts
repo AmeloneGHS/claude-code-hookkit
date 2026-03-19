@@ -51,8 +51,8 @@ describe('infoCommand', () => {
     await infoCommand({ hookName: 'sensitive-path-guard' });
 
     const output = logSpy.mock.calls.flat().join('\n');
-    expect(output).toContain('claude-hooks add sensitive-path-guard');
-    expect(output).toContain('claude-hooks test sensitive-path-guard');
+    expect(output).toContain('claude-code-hookkit add sensitive-path-guard');
+    expect(output).toContain('claude-code-hookkit test sensitive-path-guard');
   });
 
   it('shows exit 0 (allow) label for allow fixtures', async () => {

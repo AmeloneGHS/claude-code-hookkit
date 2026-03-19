@@ -204,7 +204,7 @@ describe('ts-check.sh', () => {
 describe('web-budget-gate.sh', () => {
   it('allows calls within budget', () => {
     const sessionId = `test-web-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    const counterFile = `/tmp/claude-hooks-web-count-${sessionId}`;
+    const counterFile = `/tmp/claude-code-hookkit-web-count-${sessionId}`;
     tempFiles.push(counterFile);
 
     for (let i = 1; i <= 3; i++) {
@@ -215,7 +215,7 @@ describe('web-budget-gate.sh', () => {
 
   it('blocks after limit exceeded (exit 2)', () => {
     const sessionId = `test-web-over-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    const counterFile = `/tmp/claude-hooks-web-count-${sessionId}`;
+    const counterFile = `/tmp/claude-code-hookkit-web-count-${sessionId}`;
     tempFiles.push(counterFile);
 
     // Use up the entire budget (limit=3)
@@ -231,7 +231,7 @@ describe('web-budget-gate.sh', () => {
 
   it('uses default limit of 10 when CLAUDE_HOOKS_WEB_LIMIT not set', () => {
     const sessionId = `test-web-default-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    const counterFile = `/tmp/claude-hooks-web-count-${sessionId}`;
+    const counterFile = `/tmp/claude-code-hookkit-web-count-${sessionId}`;
     tempFiles.push(counterFile);
 
     // First call should be allowed
@@ -242,8 +242,8 @@ describe('web-budget-gate.sh', () => {
   it('tracks per-session independently', () => {
     const sessionA = `test-web-a-${Date.now()}`;
     const sessionB = `test-web-b-${Date.now()}`;
-    tempFiles.push(`/tmp/claude-hooks-web-count-${sessionA}`);
-    tempFiles.push(`/tmp/claude-hooks-web-count-${sessionB}`);
+    tempFiles.push(`/tmp/claude-code-hookkit-web-count-${sessionA}`);
+    tempFiles.push(`/tmp/claude-code-hookkit-web-count-${sessionB}`);
 
     // Exhaust session A
     for (let i = 0; i < 2; i++) {
@@ -261,7 +261,7 @@ describe('web-budget-gate.sh', () => {
 describe('cost-tracker.sh', () => {
   it('always exits 0', () => {
     const sessionId = `test-cost-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    const logFile = `/tmp/claude-hooks-cost-${sessionId}.log`;
+    const logFile = `/tmp/claude-code-hookkit-cost-${sessionId}.log`;
     tempFiles.push(logFile);
 
     const r = runHook('cost-tracker.sh', { session_id: sessionId, tool_name: 'Bash' });
@@ -270,7 +270,7 @@ describe('cost-tracker.sh', () => {
 
   it('creates log file with timestamp|tool_name entry', () => {
     const sessionId = `test-cost-log-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    const logFile = `/tmp/claude-hooks-cost-${sessionId}.log`;
+    const logFile = `/tmp/claude-code-hookkit-cost-${sessionId}.log`;
     tempFiles.push(logFile);
 
     runHook('cost-tracker.sh', { session_id: sessionId, tool_name: 'Bash' });
@@ -283,7 +283,7 @@ describe('cost-tracker.sh', () => {
 
   it('appends multiple entries to log', () => {
     const sessionId = `test-cost-append-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-    const logFile = `/tmp/claude-hooks-cost-${sessionId}.log`;
+    const logFile = `/tmp/claude-code-hookkit-cost-${sessionId}.log`;
     tempFiles.push(logFile);
 
     runHook('cost-tracker.sh', { session_id: sessionId, tool_name: 'Bash' });
@@ -301,7 +301,7 @@ describe('cost-tracker.sh', () => {
   it('always exits 0 even with no session_id', () => {
     const r = runHook('cost-tracker.sh', { tool_name: 'Bash' });
     expect(r.exitCode).toBe(0);
-    tempFiles.push('/tmp/claude-hooks-cost-default.log');
+    tempFiles.push('/tmp/claude-code-hookkit-cost-default.log');
   });
 });
 

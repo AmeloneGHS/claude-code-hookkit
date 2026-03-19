@@ -12,7 +12,7 @@ import { _initAt } from '../../src/commands/init.js';
 let tmp: string;
 
 beforeEach(async () => {
-  tmp = await mkdtemp(join(tmpdir(), 'claude-hooks-test-'));
+  tmp = await mkdtemp(join(tmpdir(), 'claude-code-hookkit-test-'));
 });
 
 afterEach(async () => {
@@ -117,7 +117,7 @@ describe('initCommand', () => {
 
   it('with --scope user targets ~/.claude/ paths (check via settingsPath override)', async () => {
     // Verify that scope mapping works — test using explicit paths for isolation
-    const userTmp = await mkdtemp(join(tmpdir(), 'claude-hooks-user-'));
+    const userTmp = await mkdtemp(join(tmpdir(), 'claude-code-hookkit-user-'));
     const userSettings = join(userTmp, 'settings.json');
     const userHooks = join(userTmp, 'hooks');
 

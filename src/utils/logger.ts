@@ -1,7 +1,7 @@
 import pc from 'picocolors';
 
 /**
- * Colored output helpers for the claude-hooks CLI.
+ * Colored output helpers for the claude-code-hookkit CLI.
  * Uses picocolors for terminal detection, CI no-color, and minimal bundle size.
  */
 export const log = {

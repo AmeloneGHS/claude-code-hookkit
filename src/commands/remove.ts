@@ -78,7 +78,7 @@ export async function _removeAt(opts: RemoveAtOptions): Promise<void> {
   // 1. Look up hook in registry
   const hook = getHook(hookName);
   if (!hook) {
-    log.error(`Unknown hook: "${hookName}". Run "claude-hooks list" to see available hooks.`);
+    log.error(`Unknown hook: "${hookName}". Run "claude-code-hookkit list" to see available hooks.`);
     return;
   }
 

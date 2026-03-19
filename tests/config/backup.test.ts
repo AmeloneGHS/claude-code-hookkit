@@ -8,7 +8,7 @@ import { createBackup, restoreBackup } from '../../src/config/backup.js';
 let tmpDir: string;
 
 beforeEach(async () => {
-  tmpDir = await mkdtemp(join(tmpdir(), 'claude-hooks-backup-test-'));
+  tmpDir = await mkdtemp(join(tmpdir(), 'claude-code-hookkit-backup-test-'));
 });
 
 afterEach(async () => {

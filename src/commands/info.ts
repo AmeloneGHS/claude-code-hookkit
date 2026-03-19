@@ -70,7 +70,7 @@ export async function infoCommand(opts: InfoOptions): Promise<void> {
   const hook = getHook(hookName);
   if (!hook) {
     console.error(pc.red(`Hook "${hookName}" not found in registry.`));
-    console.error(pc.dim('Run `claude-hooks list` to see all available hooks.'));
+    console.error(pc.dim('Run `claude-code-hookkit list` to see all available hooks.'));
     process.exit(1);
   }
 
@@ -110,7 +110,7 @@ export async function infoCommand(opts: InfoOptions): Promise<void> {
   }
 
   // Usage hint
-  console.log(pc.dim(`Install with: claude-hooks add ${hookName}`));
-  console.log(pc.dim(`Test with:    claude-hooks test ${hookName}`));
+  console.log(pc.dim(`Install with: claude-code-hookkit add ${hookName}`));
+  console.log(pc.dim(`Test with:    claude-code-hookkit test ${hookName}`));
   console.log('');
 }

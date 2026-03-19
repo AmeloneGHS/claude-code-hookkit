@@ -65,7 +65,7 @@ export async function _addAt(opts: AddAtOptions): Promise<void> {
   // 1. Look up hook in registry
   const hook = getHook(hookName);
   if (!hook) {
-    log.error(`Unknown hook: "${hookName}". Run "claude-hooks list" to see available hooks.`);
+    log.error(`Unknown hook: "${hookName}". Run "claude-code-hookkit list" to see available hooks.`);
     return;
   }
 
@@ -136,7 +136,7 @@ export async function _addPackAt(opts: AddPackAtOptions): Promise<void> {
 
   const pack = getPack(packName);
   if (!pack) {
-    log.error(`Unknown hook or pack: "${packName}". Run "claude-hooks list" to see available options.`);
+    log.error(`Unknown hook or pack: "${packName}". Run "claude-code-hookkit list" to see available options.`);
     return;
   }
 
@@ -206,5 +206,5 @@ export async function addCommand(opts: AddOptions): Promise<void> {
   }
 
   // Neither hook nor pack
-  log.error(`Unknown hook or pack: "${opts.hookName}". Run "claude-hooks list" to see available options.`);
+  log.error(`Unknown hook or pack: "${opts.hookName}". Run "claude-code-hookkit list" to see available options.`);
 }

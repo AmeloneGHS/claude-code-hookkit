@@ -3,7 +3,7 @@
 # PreToolUse hook for Edit|Write events
 #
 # Blocks writes to sensitive files: .env, credentials, keys, secrets, PEM certs,
-# SSH private keys, and the claude-hooks settings file itself.
+# SSH private keys, and the claude-code-hookkit settings file itself.
 #
 # Claude Code passes JSON via stdin. We extract tool_input.file_path
 # and check it against blocked patterns using grep (POSIX, no jq needed).
@@ -73,7 +73,7 @@ case "$BASENAME" in
     ;;
 esac
 
-# Block the claude-hooks settings file itself to prevent hooks from modifying
+# Block the claude-code-hookkit settings file itself to prevent hooks from modifying
 # their own configuration (self-modification guard)
 case "$BASENAME" in
   settings.json)

@@ -1,6 +1,6 @@
-# claude-hooks
+# claude-code-hookkit
 
-[![npm version](https://img.shields.io/npm/v/claude-hooks.svg)](https://www.npmjs.com/package/claude-hooks)
+[![npm version](https://img.shields.io/npm/v/claude-code-hookkit.svg)](https://www.npmjs.com/package/claude-code-hookkit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **husky for Claude Code** — install, manage, test, and share hooks with a single command.
@@ -8,7 +8,7 @@
 Go from zero to production-grade Claude Code hooks in under 60 seconds:
 
 ```bash
-npx claude-hooks init && npx claude-hooks add security-pack
+npx claude-code-hookkit init && npx claude-code-hookkit add security-pack
 ```
 
 ---
@@ -21,7 +21,7 @@ Claude Code hooks are shell commands triggered by Claude Code events (PreToolUse
 - **Observe** and log what Claude does (exit code 0, advisory)
 - **Provide feedback** after actions complete
 
-Hooks are configured in `~/.claude/settings.json` under the `hooks` key. `claude-hooks` manages that configuration for you — non-destructively, with backups.
+Hooks are configured in `~/.claude/settings.json` under the `hooks` key. `claude-code-hookkit` manages that configuration for you — non-destructively, with backups.
 
 ---
 
@@ -29,108 +29,108 @@ Hooks are configured in `~/.claude/settings.json` under the `hooks` key. `claude
 
 ```bash
 # Initialize hook directory and seed settings.json
-npx claude-hooks init
+npx claude-code-hookkit init
 
 # Install the security pack (sensitive-path-guard + exit-code-enforcer)
-npx claude-hooks add security-pack
+npx claude-code-hookkit add security-pack
 
 # See what's installed
-npx claude-hooks list
+npx claude-code-hookkit list
 
 # Verify everything is healthy
-npx claude-hooks doctor
+npx claude-code-hookkit doctor
 ```
 
 ---
 
 ## Command Reference
 
-### `claude-hooks init`
+### `claude-code-hookkit init`
 
 Scaffold the hook directory and seed `settings.json`.
 
 ```bash
-claude-hooks init                    # project scope (default)
-claude-hooks init --scope user       # user-level settings (~/.claude/settings.json)
-claude-hooks init --dry-run          # preview without writing
+claude-code-hookkit init                    # project scope (default)
+claude-code-hookkit init --scope user       # user-level settings (~/.claude/settings.json)
+claude-code-hookkit init --dry-run          # preview without writing
 ```
 
-### `claude-hooks add <name>`
+### `claude-code-hookkit add <name>`
 
 Install a hook or pack from the bundled registry.
 
 ```bash
-claude-hooks add sensitive-path-guard          # single hook
-claude-hooks add security-pack                 # install entire pack
-claude-hooks add cost-tracker --scope user     # user-level install
-claude-hooks add post-edit-lint --dry-run      # preview changes
+claude-code-hookkit add sensitive-path-guard          # single hook
+claude-code-hookkit add security-pack                 # install entire pack
+claude-code-hookkit add cost-tracker --scope user     # user-level install
+claude-code-hookkit add post-edit-lint --dry-run      # preview changes
 ```
 
-### `claude-hooks remove <name>`
+### `claude-code-hookkit remove <name>`
 
 Remove an installed hook (script + settings.json entry).
 
 ```bash
-claude-hooks remove sensitive-path-guard
-claude-hooks remove post-edit-lint --scope user
-claude-hooks remove web-budget-gate --dry-run
+claude-code-hookkit remove sensitive-path-guard
+claude-code-hookkit remove post-edit-lint --scope user
+claude-code-hookkit remove web-budget-gate --dry-run
 ```
 
-### `claude-hooks list`
+### `claude-code-hookkit list`
 
 List all available hooks with installed status, event type, and pack.
 
 ```bash
-claude-hooks list
-claude-hooks list --scope user
+claude-code-hookkit list
+claude-code-hookkit list --scope user
 ```
 
-### `claude-hooks test <hook>`
+### `claude-code-hookkit test <hook>`
 
 Test a hook with its bundled fixture data. Validates exit code and output.
 
 ```bash
-claude-hooks test sensitive-path-guard         # test single hook
-claude-hooks test --all                        # test all installed hooks
+claude-code-hookkit test sensitive-path-guard         # test single hook
+claude-code-hookkit test --all                        # test all installed hooks
 ```
 
-### `claude-hooks create <name>`
+### `claude-code-hookkit create <name>`
 
 Scaffold a custom hook from a template.
 
 ```bash
-claude-hooks create my-guard --event PreToolUse --matcher Bash
-claude-hooks create session-logger --event SessionStart
-claude-hooks create cleanup --event Stop
+claude-code-hookkit create my-guard --event PreToolUse --matcher Bash
+claude-code-hookkit create session-logger --event SessionStart
+claude-code-hookkit create cleanup --event Stop
 ```
 
 Generates a working shell script with proper shebang, stdin JSON parsing, and a test fixture skeleton.
 
-### `claude-hooks doctor`
+### `claude-code-hookkit doctor`
 
 Validate installation health: script existence, permissions, settings.json validity, conflicting hooks.
 
 ```bash
-claude-hooks doctor
-claude-hooks doctor --scope user
+claude-code-hookkit doctor
+claude-code-hookkit doctor --scope user
 ```
 
-### `claude-hooks restore`
+### `claude-code-hookkit restore`
 
 Revert settings.json to the last backup (created automatically before every write).
 
 ```bash
-claude-hooks restore
-claude-hooks restore --scope user
+claude-code-hookkit restore
+claude-code-hookkit restore --scope user
 ```
 
-### `claude-hooks info <hook>`
+### `claude-code-hookkit info <hook>`
 
 Show full details for a hook: description, event, matcher, pack, and example input JSON.
 
 ```bash
-claude-hooks info sensitive-path-guard
-claude-hooks info web-budget-gate
+claude-code-hookkit info sensitive-path-guard
+claude-code-hookkit info web-budget-gate
 ```
 
 ---
@@ -160,7 +160,7 @@ Install related hooks together in one command.
 Essential security hooks. Blocks writes to sensitive files and dangerous shell commands.
 
 ```bash
-claude-hooks add security-pack
+claude-code-hookkit add security-pack
 ```
 
 Includes: `sensitive-path-guard`, `exit-code-enforcer`
@@ -170,7 +170,7 @@ Includes: `sensitive-path-guard`, `exit-code-enforcer`
 Code quality hooks that run automatically after Claude edits files.
 
 ```bash
-claude-hooks add quality-pack
+claude-code-hookkit add quality-pack
 ```
 
 Includes: `post-edit-lint`, `ts-check`
@@ -180,7 +180,7 @@ Includes: `post-edit-lint`, `ts-check`
 Cost control hooks. Limit web calls per session and track tool usage.
 
 ```bash
-claude-hooks add cost-pack
+claude-code-hookkit add cost-pack
 ```
 
 Includes: `web-budget-gate`, `cost-tracker`
@@ -190,7 +190,7 @@ Includes: `web-budget-gate`, `cost-tracker`
 Error recovery. When a Bash command fails, this hook analyzes the output and suggests contextual fixes.
 
 ```bash
-claude-hooks add error-pack
+claude-code-hookkit add error-pack
 ```
 
 Includes: `error-advisor`
@@ -199,7 +199,7 @@ Includes: `error-advisor`
 
 ## How Hooks Work
 
-Claude Code evaluates hooks from your `settings.json`. Example entry added by `claude-hooks add`:
+Claude Code evaluates hooks from your `settings.json`. Example entry added by `claude-code-hookkit add`:
 
 ```json
 {
@@ -232,7 +232,7 @@ Claude Code evaluates hooks from your `settings.json`. Example entry added by `c
 Scaffold a hook with the right structure:
 
 ```bash
-claude-hooks create my-guard --event PreToolUse --matcher Bash
+claude-code-hookkit create my-guard --event PreToolUse --matcher Bash
 ```
 
 This creates:
@@ -242,7 +242,7 @@ This creates:
 The generated script handles stdin JSON parsing, includes commented examples, and uses the correct exit codes. Edit the pattern-matching logic and add your fixture test cases, then run:
 
 ```bash
-claude-hooks test my-guard
+claude-code-hookkit test my-guard
 ```
 
 ### Hook Template Pattern

@@ -10,7 +10,7 @@ let settingsPath: string;
 let hooksDir: string;
 
 beforeEach(async () => {
-  tmp = await mkdtemp(join(tmpdir(), 'claude-hooks-doctor-test-'));
+  tmp = await mkdtemp(join(tmpdir(), 'claude-code-hookkit-doctor-test-'));
   settingsPath = join(tmp, '.claude', 'settings.json');
   hooksDir = join(tmp, '.claude', 'hooks');
   await mkdir(join(tmp, '.claude'), { recursive: true });

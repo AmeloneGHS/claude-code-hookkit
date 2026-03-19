@@ -152,7 +152,7 @@ async function testHook(
     } else {
       console.error(pc.red(`Hook not found: ${hookName}`));
       console.error(pc.dim('  Not in registry and no script at: ' + userScript));
-      console.error(pc.dim('  Run `claude-hooks list` to see available hooks'));
+      console.error(pc.dim('  Run `claude-code-hookkit list` to see available hooks'));
       process.exitCode = 1;
       return [];
     }
@@ -253,7 +253,7 @@ export async function testCommand(opts: TestCommandOpts): Promise<TestSummary> {
     }
 
     if (testedNames.size === 0 && allResults.length === 0) {
-      console.log(pc.yellow('\nNo installed hooks found. Run `claude-hooks add <hook>` first.'));
+      console.log(pc.yellow('\nNo installed hooks found. Run `claude-code-hookkit add <hook>` first.'));
     }
   } else if (opts.hookName) {
     console.log(pc.bold(`\n${opts.hookName}`));

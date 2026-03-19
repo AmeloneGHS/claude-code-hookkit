@@ -9,7 +9,7 @@
 # Configuration:
 #   CLAUDE_HOOKS_WEB_LIMIT — max web calls per session (default: 10)
 #
-# Counter file: /tmp/claude-hooks-web-count-<session_id>
+# Counter file: /tmp/claude-code-hookkit-web-count-<session_id>
 #
 # Claude Code passes JSON via stdin. We extract session_id for tracking.
 #
@@ -31,7 +31,7 @@ fi
 WEB_LIMIT="${CLAUDE_HOOKS_WEB_LIMIT:-10}"
 
 # Counter file path — unique per session
-COUNTER_FILE="/tmp/claude-hooks-web-count-${SESSION_ID}"
+COUNTER_FILE="/tmp/claude-code-hookkit-web-count-${SESSION_ID}"
 
 # Read current count from file (default 0 if file doesn't exist)
 if [ -f "$COUNTER_FILE" ]; then

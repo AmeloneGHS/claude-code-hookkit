@@ -21,7 +21,7 @@ exit 0
 `;
 
 beforeEach(async () => {
-  tmp = await mkdtemp(join(tmpdir(), 'claude-hooks-test-runner-'));
+  tmp = await mkdtemp(join(tmpdir(), 'claude-code-hookkit-test-runner-'));
   hooksDir = join(tmp, 'hooks');
   fixturesDir = join(tmp, 'fixtures');
   await mkdir(hooksDir, { recursive: true });

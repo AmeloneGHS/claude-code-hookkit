@@ -12,7 +12,7 @@ let hooksDir: string;
 let sourceHooksDir: string;
 
 beforeEach(async () => {
-  tmp = await mkdtemp(join(tmpdir(), 'claude-hooks-remove-test-'));
+  tmp = await mkdtemp(join(tmpdir(), 'claude-code-hookkit-remove-test-'));
   settingsPath = join(tmp, '.claude', 'settings.json');
   hooksDir = join(tmp, '.claude', 'hooks');
   sourceHooksDir = join(tmp, 'registry', 'hooks');

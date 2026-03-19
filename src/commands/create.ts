@@ -133,7 +133,7 @@ export async function _createAt(opts: {
 }
 
 /**
- * The `claude-hooks create` command.
+ * The `claude-code-hookkit create` command.
  * Scaffolds a hook script from an event-type template and writes fixture skeletons.
  */
 export async function createCommand(opts: CreateOptions): Promise<void> {
@@ -169,6 +169,6 @@ export async function createCommand(opts: CreateOptions): Promise<void> {
     log.info('');
     log.info('Next steps:');
     log.dim(`  1. Edit ${result.scriptPath} to add your logic`);
-    log.dim(`  2. Run: claude-hooks test ${name}`);
+    log.dim(`  2. Run: claude-code-hookkit test ${name}`);
   }
 }

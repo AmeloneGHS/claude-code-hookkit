@@ -6,7 +6,7 @@
 # This creates a usage audit trail useful for understanding which tools
 # Claude is calling most frequently and estimating session costs.
 #
-# Log file: /tmp/claude-hooks-cost-<session_id>.log
+# Log file: /tmp/claude-code-hookkit-cost-<session_id>.log
 # Log format: timestamp|tool_name
 #
 # Claude Code passes JSON via stdin. We extract tool_name and session_id.
@@ -35,7 +35,7 @@ fi
 TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ" 2>/dev/null || date +"%Y-%m-%dT%H:%M:%SZ")
 
 # Log file path — unique per session
-LOG_FILE="/tmp/claude-hooks-cost-${SESSION_ID}.log"
+LOG_FILE="/tmp/claude-code-hookkit-cost-${SESSION_ID}.log"
 
 # Append log entry: timestamp|tool_name
 printf '%s|%s\n' "$TIMESTAMP" "$TOOL_NAME" >> "$LOG_FILE"

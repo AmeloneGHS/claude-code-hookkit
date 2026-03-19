@@ -45,7 +45,7 @@ function preToolUseTemplate(name: string, matcher?: string): string {
   return `#!/usr/bin/env bash
 # ${name} — PreToolUse hook
 ${matcherLine}
-# Created by claude-hooks create
+# Created by claude-code-hookkit create
 #
 # PreToolUse hooks can block tool execution:
 #   exit 0  → allow the tool to run
@@ -77,7 +77,7 @@ function postToolUseTemplate(name: string, matcher?: string): string {
   return `#!/usr/bin/env bash
 # ${name} — PostToolUse hook
 ${matcherLine}
-# Created by claude-hooks create
+# Created by claude-code-hookkit create
 #
 # PostToolUse hooks are informational — they should always exit 0.
 # They run after the tool has already executed.
@@ -102,7 +102,7 @@ exit 0
 function sessionStartTemplate(name: string): string {
   return `#!/usr/bin/env bash
 # ${name} — SessionStart hook
-# Created by claude-hooks create
+# Created by claude-code-hookkit create
 #
 # SessionStart hooks run when a new Claude Code session begins.
 set -euo pipefail
@@ -125,7 +125,7 @@ exit 0
 function stopTemplate(name: string): string {
   return `#!/usr/bin/env bash
 # ${name} — Stop hook
-# Created by claude-hooks create
+# Created by claude-code-hookkit create
 #
 # Stop hooks run when a Claude Code session ends.
 set -euo pipefail
@@ -147,7 +147,7 @@ exit 0
 function genericTemplate(name: string, event: string): string {
   return `#!/usr/bin/env bash
 # ${name} — ${event} hook
-# Created by claude-hooks create
+# Created by claude-code-hookkit create
 set -euo pipefail
 
 # Read JSON input from stdin

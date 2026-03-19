@@ -9,7 +9,7 @@ let tmp: string;
 let hooksDir: string;
 
 beforeEach(async () => {
-  tmp = await mkdtemp(join(tmpdir(), 'claude-hooks-list-test-'));
+  tmp = await mkdtemp(join(tmpdir(), 'claude-code-hookkit-list-test-'));
   hooksDir = join(tmp, '.claude', 'hooks');
   await mkdir(hooksDir, { recursive: true });
 });

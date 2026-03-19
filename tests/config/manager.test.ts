@@ -9,7 +9,7 @@ import type { ClaudeSettings } from '../../src/types/settings.js';
 let tmpDir: string;
 
 beforeEach(async () => {
-  tmpDir = await mkdtemp(join(tmpdir(), 'claude-hooks-manager-test-'));
+  tmpDir = await mkdtemp(join(tmpdir(), 'claude-code-hookkit-manager-test-'));
 });
 
 afterEach(async () => {
