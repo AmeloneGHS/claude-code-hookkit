@@ -1,0 +1,5 @@
+{
+  "description": "Exits 0 for unknown file extension (no linter configured)",
+  "input": { "tool_input": { "file_path": "file.xyz" } },
+  "expectedExitCode": 0
+}

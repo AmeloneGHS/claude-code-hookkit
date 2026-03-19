@@ -105,4 +105,20 @@ Examples:
     await testCommand({ hookName: hook, ...opts });
   });
 
+program
+  .command('create <name>')
+  .description('Scaffold a new custom hook from a template')
+  .requiredOption('--event <type>', 'Hook event type (PreToolUse, PostToolUse, SessionStart, Stop)')
+  .option('--matcher <pattern>', 'Tool matcher pattern (e.g., "Bash", "Edit|Write")')
+  .option('--scope <scope>', 'Settings scope: user, project, or local', 'project')
+  .addHelpText('after', `
+Examples:
+  $ claude-hooks create my-guard --event PreToolUse --matcher Bash
+  $ claude-hooks create session-logger --event SessionStart
+  $ claude-hooks create cleanup --event Stop`)
+  .action(async (name: string, opts: { event: string; matcher?: string; scope: string }) => {
+    const { createCommand } = await import('./commands/create.js');
+    await createCommand({ name, ...opts });
+  });
+
 program.parse();

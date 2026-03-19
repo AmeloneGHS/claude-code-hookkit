@@ -1,0 +1,5 @@
+{
+  "description": "Tracks Bash tool usage (always exits 0, advisory hook)",
+  "input": { "session_id": "fixture-cost-test", "tool_name": "Bash" },
+  "expectedExitCode": 0
+}

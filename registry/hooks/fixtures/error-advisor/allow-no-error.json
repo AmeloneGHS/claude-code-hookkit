@@ -1,0 +1,5 @@
+{
+  "description": "Silent when no error detected (exits 0 with no output)",
+  "input": { "tool_name": "Bash", "tool_response": "Success" },
+  "expectedExitCode": 0
+}

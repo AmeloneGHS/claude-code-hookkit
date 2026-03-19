@@ -1,0 +1,5 @@
+{
+  "description": "Provides ENOENT advice to stderr (always exits 0, advisory hook)",
+  "input": { "tool_name": "Bash", "tool_response": "ENOENT: no such file or directory" },
+  "expectedExitCode": 0
+}

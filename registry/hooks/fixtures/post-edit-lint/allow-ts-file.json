@@ -1,0 +1,5 @@
+{
+  "description": "Exits 0 for TypeScript file (linter runs externally, hook always succeeds)",
+  "input": { "tool_input": { "file_path": "src/app.ts" } },
+  "expectedExitCode": 0
+}

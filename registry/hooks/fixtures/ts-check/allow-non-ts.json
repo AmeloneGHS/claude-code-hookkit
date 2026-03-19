@@ -1,0 +1,5 @@
+{
+  "description": "Exits 0 for non-TypeScript file (hook skips non-TS files)",
+  "input": { "tool_input": { "file_path": "app.py" } },
+  "expectedExitCode": 0
+}

@@ -1,0 +1,5 @@
+{
+  "description": "Blocks destructive rm -rf /",
+  "input": { "tool_input": { "command": "rm -rf /" } },
+  "expectedExitCode": 2
+}

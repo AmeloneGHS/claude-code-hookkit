@@ -1,0 +1,6 @@
+{
+  "description": "Allows call when within budget (fresh session, limit=10)",
+  "input": { "session_id": "fixture-allow-test" },
+  "expectedExitCode": 0,
+  "env": { "CLAUDE_HOOKS_WEB_LIMIT": "10" }
+}

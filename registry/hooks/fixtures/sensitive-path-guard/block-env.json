@@ -1,0 +1,5 @@
+{
+  "description": "Blocks writes to .env files",
+  "input": { "tool_input": { "file_path": ".env" } },
+  "expectedExitCode": 2
+}

@@ -1,0 +1,6 @@
+{
+  "description": "Blocks when budget limit is 0 (any call immediately exhausts budget)",
+  "input": { "session_id": "fixture-block-budget-test" },
+  "expectedExitCode": 2,
+  "env": { "CLAUDE_HOOKS_WEB_LIMIT": "0" }
+}

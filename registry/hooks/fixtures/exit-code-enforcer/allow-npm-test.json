@@ -1,0 +1,5 @@
+{
+  "description": "Allows safe npm test command",
+  "input": { "tool_input": { "command": "npm test" } },
+  "expectedExitCode": 0
+}

@@ -1,0 +1,5 @@
+{
+  "description": "Handles missing session_id gracefully (exits 0)",
+  "input": { "tool_name": "Read" },
+  "expectedExitCode": 0
+}

@@ -1,0 +1,5 @@
+{
+  "description": "Allows writes to source files",
+  "input": { "tool_input": { "file_path": "src/app.ts" } },
+  "expectedExitCode": 0
+}
