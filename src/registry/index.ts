@@ -5,10 +5,29 @@ import { registrySchema } from './types.js';
 import type { Registry, HookDefinition, HookPack } from './types.js';
 
 // Resolve registry.json relative to this file's location at runtime.
-// Works for both src/ (ts-node/vitest) and dist/ (built output).
+// Works for both src/registry/ (ts-node/vitest) and dist/ (built output).
 const _require = createRequire(import.meta.url);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+import { existsSync } from 'node:fs';
+
+/**
+ * Find the package root by walking up from __dirname until registry/registry.json exists.
+ * This handles both src/registry/ (dev) and dist/ (built) layouts without hard-coded depths.
+ */
+function findRegistryPath(): string {
+  // Try up to 4 levels up from __dirname
+  let dir = __dirname;
+  for (let i = 0; i < 4; i++) {
+    const candidate = join(dir, 'registry', 'registry.json');
+    if (existsSync(candidate)) return candidate;
+    const parent = join(dir, '..');
+    if (parent === dir) break; // reached filesystem root
+    dir = parent;
+  }
+  throw new Error(`registry/registry.json not found searching up from: ${__dirname}`);
+}
 
 // Cache after first load — registry.json is static at runtime
 let _cache: Registry | null = null;
@@ -23,8 +42,7 @@ export function loadRegistry(): Registry {
     return _cache;
   }
 
-  // registry/ directory lives at the package root, two levels up from src/registry/
-  const registryPath = join(__dirname, '..', '..', 'registry', 'registry.json');
+  const registryPath = findRegistryPath();
   const raw = _require(registryPath) as unknown;
 
   const parsed = registrySchema.parse(raw);

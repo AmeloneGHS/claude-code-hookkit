@@ -38,7 +38,12 @@
     "claude-code",
     "hooks",
     "cli",
-    "anthropic"
+    "anthropic",
+    "developer-tools",
+    "automation",
+    "hook-manager",
+    "llm-tools",
+    "ai-safety"
   ],
   "license": "MIT"
 }

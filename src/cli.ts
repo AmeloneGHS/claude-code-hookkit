@@ -121,4 +121,17 @@ Examples:
     await createCommand({ name, ...opts });
   });
 
+program
+  .command('info <hook>')
+  .description('Show details for a hook: description, event, matcher, pack, and examples')
+  .addHelpText('after', `
+Examples:
+  $ claude-hooks info sensitive-path-guard
+  $ claude-hooks info web-budget-gate
+  $ claude-hooks info error-advisor`)
+  .action(async (hook: string) => {
+    const { infoCommand } = await import('./commands/info.js');
+    await infoCommand({ hookName: hook });
+  });
+
 program.parse();
