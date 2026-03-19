@@ -5,15 +5,20 @@ import { existsSync } from 'node:fs';
 export type Scope = 'user' | 'project' | 'local';
 
 /**
- * Walk up from cwd looking for .git to find the project root.
- * Only checks .git (not .claude) to avoid resolving to ~/.claude on machines
- * that have user-scope Claude config. Falls back to cwd if no .git found.
+ * Walk up from cwd looking for .git or project-level .claude to find the project root.
+ * Skips the home directory's .claude to avoid resolving user-scope config as project root.
+ * Falls back to cwd if neither is found.
  */
 function findProjectRoot(): string {
+  const home = homedir();
   let dir = resolve(process.cwd());
 
   while (true) {
     if (existsSync(join(dir, '.git'))) {
+      return dir;
+    }
+    // Check for .claude but skip home directory (that's user scope, not project)
+    if (dir !== home && existsSync(join(dir, '.claude'))) {
       return dir;
     }
     const parent = dirname(dir);

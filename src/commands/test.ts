@@ -125,18 +125,28 @@ async function testHook(
   scope: string,
 ): Promise<TestResult[]> {
   const def = getHook(hookName);
-  if (!def) {
-    console.error(pc.red(`Hook not found in registry: ${hookName}`));
-    console.error(pc.dim('  Run `claude-hooks list` to see available hooks'));
-    process.exitCode = 1;
-    return [];
-  }
+  const userHooksDir = getHooksDir(scope as 'user' | 'project' | 'local');
 
-  const scriptPath = resolveBundledScriptPath(def.scriptFile);
+  // Resolve script path: bundled hook or user-created hook
+  let scriptPath: string;
+  if (def) {
+    scriptPath = resolveBundledScriptPath(def.scriptFile);
+  } else {
+    // Check if it's a user-created hook
+    const userScript = join(userHooksDir, `${hookName}.sh`);
+    if (existsSync(userScript)) {
+      scriptPath = userScript;
+    } else {
+      console.error(pc.red(`Hook not found: ${hookName}`));
+      console.error(pc.dim('  Not in registry and no script at: ' + userScript));
+      console.error(pc.dim('  Run `claude-hooks list` to see available hooks'));
+      process.exitCode = 1;
+      return [];
+    }
+  }
 
   // Discover fixtures: bundled first, then user fixtures dir
   const bundledFixtureDir = join(BUNDLED_FIXTURES_DIR, hookName);
-  const userHooksDir = getHooksDir(scope as 'user' | 'project' | 'local');
   const userFixtureDir = join(userHooksDir, 'fixtures', hookName);
 
   const bundledFixtures = await discoverFixtures(bundledFixtureDir);
@@ -145,7 +155,7 @@ async function testHook(
 
   if (allFixtures.length === 0) {
     console.log(pc.yellow(`  warning`) + `  ${hookName}: no fixtures found`);
-    console.log(pc.dim(`    Add fixtures at: registry/hooks/fixtures/${hookName}/*.json`));
+    console.log(pc.dim(`    Add fixtures at: ${userFixtureDir}/*.json`));
     return [];
   }
 
@@ -193,12 +203,37 @@ export async function testCommand(opts: TestCommandOpts): Promise<TestSummary> {
   const allResults: TestResult[] = [];
 
   if (opts.all) {
-    // Test all bundled hooks
-    const allHooks = listHooks();
-    for (const def of allHooks) {
+    // Test all bundled hooks + any user-created hooks with fixtures
+    const bundledHooks = listHooks();
+    const testedNames = new Set<string>();
+
+    // 1. All bundled hooks
+    for (const def of bundledHooks) {
       console.log(pc.bold(`\n${def.name}`));
       const results = await testHook(def.name, scope);
       allResults.push(...results);
+      testedNames.add(def.name);
+    }
+
+    // 2. User-created hooks with fixtures (discovered from .claude/hooks/fixtures/)
+    const userHooksDir = getHooksDir(scope as 'user' | 'project' | 'local');
+    const userFixturesRoot = join(userHooksDir, 'fixtures');
+    if (existsSync(userFixturesRoot)) {
+      try {
+        const dirs = await readdir(userFixturesRoot, { withFileTypes: true });
+        for (const d of dirs) {
+          if (d.isDirectory() && !testedNames.has(d.name)) {
+            const userScript = join(userHooksDir, `${d.name}.sh`);
+            if (existsSync(userScript)) {
+              console.log(pc.bold(`\n${d.name}`) + pc.dim(' (custom)'));
+              const results = await testHook(d.name, scope);
+              allResults.push(...results);
+            }
+          }
+        }
+      } catch {
+        // fixtures dir unreadable — skip custom hooks
+      }
     }
   } else if (opts.hookName) {
     console.log(pc.bold(`\n${opts.hookName}`));

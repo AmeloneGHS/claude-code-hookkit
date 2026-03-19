@@ -38,12 +38,19 @@ function removeHookFromSettings(
   let removedCount = 0;
 
   for (const [event, groups] of Object.entries(modified.hooks!)) {
-    const filtered = (groups as HookGroup[]).filter((group) => {
-      // Match by exact filename at end of path to avoid substring collisions
-      const hasMatch = group.hooks.some((h) => h.command === scriptFile || h.command.endsWith('/' + scriptFile));
-      if (hasMatch) removedCount++;
-      return !hasMatch;
-    });
+    const filtered: HookGroup[] = [];
+    for (const group of groups as HookGroup[]) {
+      // Filter out only the specific command entries that match, keep the rest
+      const remainingHooks = group.hooks.filter((h) => {
+        const matches = h.command === scriptFile || h.command.endsWith('/' + scriptFile);
+        if (matches) removedCount++;
+        return !matches;
+      });
+      // Only keep the group if it still has hooks
+      if (remainingHooks.length > 0) {
+        filtered.push({ ...group, hooks: remainingHooks });
+      }
+    }
     modified.hooks![event] = filtered;
   }
 
